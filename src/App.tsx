@@ -1,14 +1,9 @@
 import './App.css';
 import ChartWrapper from './components/ChartWrapper';
 import ScatterPlot from "./components/deepscatter";
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { DataPoint } from './Types';
 
-interface DataPoint {
-  x: number;
-  y: number;
-  title: string;
-  id: number;
-};
 
 function App() {
   const plotRef = useRef<ScatterPlot>();
@@ -37,21 +32,12 @@ function App() {
     },
   };
 
-  const tooltipHTML = (point: DataPoint): string => {
-    return `
-      <div style="width: 200px; z-index: 99;">
-      <h3>${point.title}</h3>
-      <p>${point.id}</p>
-      </div>
-  `;
-  };
 
   return (
     <div className="App">
       <ChartWrapper 
       prefs={prefs}
-      plotRef={plotRef}
-      tooltipHTML={tooltipHTML}/>
+      plotRef={plotRef}/>
     </div>
   );
 }

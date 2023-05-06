@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState, createContext, useMemo, CSSProperties } from 'react';
 import ScatterPlot from "./deepscatter";
+import { tooltipHTML } from '../lib/tooltipHTML';
 
-export const DeepScatterContext = createContext<any>({});
+// export const DeepScatterContext = createContext<any>({});
 
 const parentDivStyle: CSSProperties = {
   position: "fixed",
@@ -14,10 +15,10 @@ const parentDivStyle: CSSProperties = {
 interface ChartProps {
   prefs: Object; 
   plotRef: any;
-  tooltipHTML: (point: any) => string}
+}
 
-const ChartWrapper = ({prefs, plotRef, tooltipHTML}: ChartProps) => {
-    const [initialLoadComplete, setInitialLoadComplete] = useState<boolean>(false);
+const ChartWrapper = ({prefs, plotRef}: ChartProps) => {
+    // const [initialLoadComplete, setInitialLoadComplete] = useState<boolean>(false);
     const chartParentId = "deep-scatter-parent-element-id";
     const chartParentRef = useRef(null);
 
@@ -27,23 +28,24 @@ const ChartWrapper = ({prefs, plotRef, tooltipHTML}: ChartProps) => {
       _plot.tooltip_html = tooltipHTML;
 
       plotRef.current = _plot;
-      // console.log("created scatter...");
-      plotRef.current.plotAPI(prefs).finally(() => {
-        // console.log("... initial prefs set");
-        setInitialLoadComplete(true);
+      console.log("created scatter...");
+     
+      plotRef.current.plotAPI(prefs).finally(async () => {
+        console.log("... initial prefs set");
+        // setInitialLoadComplete(true);
       });
     }
-  }, [chartParentId, plotRef, chartParentRef, prefs, tooltipHTML]);
+  }, [chartParentId, plotRef, chartParentRef, prefs]);
 
-  const providerState = useMemo(
-    () => ({ initialLoadComplete, plotRef }),
-    [initialLoadComplete, plotRef]
-  );
+  // const providerState = useMemo(
+  //   () => ({ initialLoadComplete, plotRef }),
+  //   [initialLoadComplete, plotRef]
+  // );
 
    return( 
-    <DeepScatterContext.Provider value={providerState}>
+    // <DeepScatterContext.Provider value={providerState}>
         <div style={parentDivStyle} id={chartParentId} ref={chartParentRef} />
-    </DeepScatterContext.Provider>
+    // </DeepScatterContext.Provider>
     )
 }
 
