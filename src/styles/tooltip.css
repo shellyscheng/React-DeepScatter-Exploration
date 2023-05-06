@@ -1,0 +1,44 @@
+/* tooltipStyles css */
+.tooltip-content {
+  width: 400px;
+  z-index: 99;
+}
+
+a {
+  color: inherit; /* or any other color you prefer */
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .tooltip-content {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tooltip-content {
+    width: 150px;
+  }
+}
+
+.spinner {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  border-top-color: rgba(0, 0, 0, 0.6);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

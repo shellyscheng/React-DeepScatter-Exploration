@@ -15,6 +15,7 @@ interface WikipediaResponse {
 
 export const wikipediaCache = new Map<number, string>();
 
+// call wikipedia api to get the opening text of the article
 export const fetchOpeningText = async (id: number): Promise<string> => {
   // If the content is already in the cache, return it
   if (wikipediaCache.has(id)) {

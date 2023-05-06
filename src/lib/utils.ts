@@ -1,6 +1,14 @@
-import { DataPoint } from '../Types';
 import { fetchOpeningText } from './fetchOpeningText';
 import ScatterPlot from '../lib/deepscatter';
+
+export interface DataPoint {
+  x: number;
+  y: number;
+  title: string;
+  id: number;
+  topic_top_50: string;
+  topic_top_100: string;
+}
 
 export function formatString(str: string): string {
   // Replace underscores with spaces
@@ -10,6 +18,7 @@ export function formatString(str: string): string {
   return str;
 }
 
+// process tooltip to the right format for the chart
 export const handleTooltip = (point: DataPoint): string => {
   const tooltipId = `tooltip-${point.id}`;
 
@@ -18,10 +27,13 @@ export const handleTooltip = (point: DataPoint): string => {
     const tooltipElement = document.getElementById(tooltipId);
     if (tooltipElement) {
       tooltipElement.innerHTML = `
-          <div style="width: 200px; z-index: 99;">
+          <div class="tooltip-content">
             <h3>&lt;${formatString(point.topic_top_50)}&gt</h3>
+            <a href="https://en.wikipedia.org/wiki?curid=${
+              point.id
+            }" target="_blank">
             <h2>${point.title}</h2>
-            <p>${point.id}</p>
+            </a>
             <p>${openingText}</p>
           </div>`;
     }
@@ -30,14 +42,18 @@ export const handleTooltip = (point: DataPoint): string => {
   updateTooltipContent(point.id);
 
   return `
-      <div id="${tooltipId}" style="width: 200px; z-index: 99;">
+      <div id="${tooltipId}" class="tooltip-content"">
         <h3>&lt;${formatString(point.topic_top_50)}&gt</h3>
-        <h2>${point.title}</h2>
-        <p>${point.id}</p>
-        <p>Loading...</p>
+        <a href="https://en.wikipedia.org/wiki?curid=${
+          point.id
+        }" target="_blank">
+          <h2>${point.title}</h2>
+        </a>
+        <div class="spinner"></div>
       </div>`;
 };
 
+// open wikipedia page in new tab when clicking on a point
 export const handleClick = (point: DataPoint) => {
   const url = `https://en.wikipedia.org/wiki?curid=${point.id}`;
   console.log('point', point);
@@ -50,7 +66,7 @@ export const getAllCategoricalFields = ({
 }: {
   field: string;
   plot?: ScatterPlot;
-}): Array<string> => {
+}): string[] => {
   return plot?._renderer?.aes?.dim(field).current.scale.domain() || [];
 };
 
@@ -64,6 +80,7 @@ export const getAllCategoricalColors = ({
   return plot?._renderer?.aes?.dim(field).current.scale.range() || [];
 };
 
+// create the categorical filter for the plot
 export const generateCategoricalFilter = ({
   field,
   selectedCategories,

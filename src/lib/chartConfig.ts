@@ -2,7 +2,7 @@ export const COLOR_FIELD = 'color';
 export const COLOR_BY_FIELD = 'topic_top_50';
 export const COLOR_SCHEME = 'category10';
 
-export const prefs = {
+export const initialPrefs = {
   source_url: '/tiles', // the output of the quadfeather tiling engine
   max_points: 10000, // a full cap.
   alpha: 25, // Target saturation for the full page.

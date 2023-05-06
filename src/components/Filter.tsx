@@ -1,30 +1,29 @@
-import React, { useContext, useState } from 'react';
-import { DeepScatterContext } from '../contexts/ChartContext';
+import { useState } from 'react';
 import {
   getAllCategoricalColors,
   getAllCategoricalFields,
   formatString,
 } from '../lib/utils';
 import { COLOR_BY_FIELD } from '../lib/chartConfig';
+import ScatterPlot from '../lib/deepscatter';
+import '../styles/Filter.css';
 
-interface ControlPanelProps {
-  colorField: string;
-  colorScheme: string;
-  updateCategoricalFilter: Function;
-}
-
-const ControlPanel = ({
+const Filters = ({
   colorField,
-  colorScheme,
   updateCategoricalFilter,
-}: ControlPanelProps) => {
-  const { plotRef } = useContext(DeepScatterContext);
-
+  plotRef,
+}: {
+  colorField: string;
+  updateCategoricalFilter: Function;
+  plotRef: React.MutableRefObject<ScatterPlot | undefined>;
+}) => {
+  // get all categorical options
   const categoricalOptions = getAllCategoricalFields({
     field: colorField,
     plot: plotRef.current,
   });
 
+  // get all categorical colors
   const colorOptions = getAllCategoricalColors({
     field: colorField,
     plot: plotRef.current,
@@ -33,11 +32,12 @@ const ControlPanel = ({
   const [selectedCategories, setSelectedCategories] =
     useState<string[]>(categoricalOptions);
 
+  // handle tooltip selection
   const handleSelect = (option: string) => {
     const index = selectedCategories.findIndex(
       (selected) => selected === option
     );
-    console.log('index', index);
+
     let newSelectedCategories: string[];
 
     if (index === -1) {
@@ -49,10 +49,7 @@ const ControlPanel = ({
     }
 
     setSelectedCategories(newSelectedCategories);
-    console.log({
-      colorField,
-      selectedCategories: newSelectedCategories,
-    });
+
     updateCategoricalFilter({
       field: COLOR_BY_FIELD,
       selectedCategories: newSelectedCategories,
@@ -60,15 +57,7 @@ const ControlPanel = ({
   };
 
   return (
-    <div
-      className="control-panel"
-      style={{
-        position: 'fixed',
-        zIndex: 400,
-        display: 'flex',
-        justifyContent: 'center',
-      }}
-    >
+    <div className="dropdown-content">
       {categoricalOptions.map((option, index) => {
         const isSelected = selectedCategories.includes(option);
         return (
@@ -80,7 +69,6 @@ const ControlPanel = ({
             style={{
               backgroundColor: colorOptions[index % colorOptions.length],
               position: 'relative',
-              fontWeight: 'bold',
             }}
           >
             <input
@@ -96,4 +84,4 @@ const ControlPanel = ({
   );
 };
 
-export default ControlPanel;
+export default Filters;

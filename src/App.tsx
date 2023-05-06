@@ -2,13 +2,14 @@ import './App.css';
 import ChartWrapper from './components/ChartWrapper';
 import ScatterPlot from './lib/deepscatter';
 import { useRef } from 'react';
-import { prefs, COLOR_FIELD, COLOR_SCHEME } from './lib/chartConfig';
-import ControlPanel from './components/ControlPanel';
+import { COLOR_FIELD, initialPrefs } from './lib/chartConfig';
+import NavBar from './components/NavBar';
 import { generateCategoricalFilter } from './lib/utils';
 
 function App() {
   const plotRef = useRef<ScatterPlot>();
 
+  //function to update the plot with current selected categorical filter
   const updateCategoricalFilter = ({
     field,
     selectedCategories,
@@ -18,7 +19,7 @@ function App() {
   }) => {
     plotRef?.current?.plotAPI({
       encoding: {
-        filter2: generateCategoricalFilter({
+        filter: generateCategoricalFilter({
           field,
           selectedCategories,
         }),
@@ -28,13 +29,12 @@ function App() {
 
   return (
     <div className="App">
-      <ChartWrapper prefs={prefs} plotRef={plotRef}>
-        <ControlPanel
-          colorField={COLOR_FIELD}
-          colorScheme={COLOR_SCHEME}
-          updateCategoricalFilter={updateCategoricalFilter}
-        />
-      </ChartWrapper>
+      <ChartWrapper
+        prefs={initialPrefs}
+        plotRef={plotRef}
+        colorField={COLOR_FIELD}
+        updateCategoricalFilter={updateCategoricalFilter}
+      />
     </div>
   );
 }

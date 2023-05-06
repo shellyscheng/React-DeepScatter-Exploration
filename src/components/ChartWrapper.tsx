@@ -4,11 +4,11 @@ import React, {
   useState,
   useMemo,
   CSSProperties,
-  ReactNode,
 } from 'react';
 import ScatterPlot from '../lib/deepscatter';
+import NavBar from './NavBar';
 import { handleClick, handleTooltip } from '../lib/utils';
-import { DeepScatterContext } from '../contexts/ChartContext';
+import '../styles/tooltip.css';
 
 const parentDivStyle: CSSProperties = {
   position: 'fixed',
@@ -21,15 +21,22 @@ const parentDivStyle: CSSProperties = {
 interface ChartProps {
   prefs: Object;
   plotRef: React.MutableRefObject<ScatterPlot | undefined>;
-  children: ReactNode;
+  colorField: string;
+  updateCategoricalFilter: Function;
 }
 
-const ChartWrapper = ({ prefs, plotRef, children }: ChartProps) => {
+const ChartWrapper = ({
+  prefs,
+  plotRef,
+  colorField,
+  updateCategoricalFilter,
+}: ChartProps) => {
   const [initialLoadComplete, setInitialLoadComplete] =
     useState<boolean>(false);
   const chartParentId = 'deep-scatter-parent-element-id';
   const chartParentRef = useRef(null);
 
+  // load the DeepScatter plot
   useEffect(() => {
     if (chartParentRef.current && !plotRef?.current) {
       const _plot = new ScatterPlot(`#${chartParentId}`);
@@ -49,16 +56,15 @@ const ChartWrapper = ({ prefs, plotRef, children }: ChartProps) => {
     }
   }, [chartParentId, plotRef, chartParentRef, prefs]);
 
-  const providerState = useMemo(
-    () => ({ initialLoadComplete, plotRef }),
-    [initialLoadComplete, plotRef]
-  );
-
   return (
-    <DeepScatterContext.Provider value={providerState}>
-      {children}
+    <div>
+      <NavBar
+        colorField={colorField}
+        updateCategoricalFilter={updateCategoricalFilter}
+        plotRef={plotRef}
+      />
       <div style={parentDivStyle} id={chartParentId} ref={chartParentRef} />
-    </DeepScatterContext.Provider>
+    </div>
   );
 };
 
