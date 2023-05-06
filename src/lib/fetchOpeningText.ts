@@ -22,17 +22,20 @@ export const fetchOpeningText = async (id: number): Promise<string> => {
   }
 
   try {
-    const response: AxiosResponse<WikipediaResponse> = await axios.get('https://en.wikipedia.org/w/api.php', {
-      params: {
-        action: 'query',
-        prop: 'extracts',
-        format: 'json',
-        exintro: 1,
-        explaintext: 1,
-        pageids: id,
-        origin: '*',
-      },
-    });
+    const response: AxiosResponse<WikipediaResponse> = await axios.get(
+      'https://en.wikipedia.org/w/api.php',
+      {
+        params: {
+          action: 'query',
+          prop: 'extracts',
+          format: 'json',
+          exintro: 1,
+          explaintext: 1,
+          pageids: id,
+          origin: '*',
+        },
+      }
+    );
 
     const pages = response.data.query.pages;
     const page = Object.values(pages)[0];
@@ -45,4 +48,4 @@ export const fetchOpeningText = async (id: number): Promise<string> => {
     console.error('Error fetching Wikipedia data:', error);
     return '';
   }
-}
+};

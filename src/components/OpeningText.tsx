@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { fetchOpeningText } from '../lib/fetchOpeningText';
 
-interface OpeningTextProps {
-  pointId: number;
-}
-
-const OpeningText: React.FC<OpeningTextProps> = ({ pointId }) => {
-  const [openingText, setOpeningText] = useState<string | null>(null);
+const OpeningText = ({ pointId }: { pointId: number }) => {
+  const [openingText, setOpeningText] = useState<string>();
 
   useEffect(() => {
     (async () => {

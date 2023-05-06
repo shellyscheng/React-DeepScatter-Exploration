@@ -36,3 +36,40 @@
     transform: rotate(360deg);
   }
 }
+
+/* ControlPanel.css */
+.control-panel {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.control-panel-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.control-panel-item input[type='checkbox'] {
+  margin-right: 10px;
+}
+
+.control-panel-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(128, 128, 128, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.control-panel-item.lighten::before {
+  opacity: 1;
+}
