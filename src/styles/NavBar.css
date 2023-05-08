@@ -55,7 +55,7 @@
   background-color: #ffffff;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  z-index: 1;
+  z-index: 2000;
   max-height: calc(100vh - 70px); /* Subtract the height of the navbar */
   overflow-y: auto;
 }
@@ -111,4 +111,12 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     border-radius: 0 0 4px 4px;
   }
+}
+
+.range-slider {
+  margin-top: 20px;
+}
+
+.slider-div {
+  padding-bottom: 10px;
 }

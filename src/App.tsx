@@ -2,8 +2,7 @@ import './App.css';
 import ChartWrapper from './components/ChartWrapper';
 import ScatterPlot from './lib/deepscatter';
 import { useRef } from 'react';
-import { COLOR_FIELD, initialPrefs } from './lib/chartConfig';
-import NavBar from './components/NavBar';
+import { DEFAULT_COLOR_BY_FIELD, initialPrefs } from './lib/chartConfig';
 import { generateCategoricalFilter } from './lib/utils';
 
 function App() {
@@ -27,13 +26,31 @@ function App() {
     });
   };
 
+  const updatePointSize = ({ pointSize }: { pointSize: number }) => {
+    plotRef?.current?.plotAPI({
+      point_size: pointSize,
+    });
+  };
+
+  const updateColorScheme = ({ colorScheme }: { colorScheme: string }) => {
+    plotRef?.current?.plotAPI({
+      encoding: {
+        color: {
+          field: DEFAULT_COLOR_BY_FIELD,
+          range: colorScheme,
+        },
+      },
+    });
+  };
+
   return (
     <div className="App">
       <ChartWrapper
         prefs={initialPrefs}
         plotRef={plotRef}
-        colorField={COLOR_FIELD}
         updateCategoricalFilter={updateCategoricalFilter}
+        updatePointSize={updatePointSize}
+        updateColorScheme={updateColorScheme}
       />
     </div>
   );

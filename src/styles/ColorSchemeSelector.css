@@ -1,0 +1,17 @@
+.color-scheme-selector {
+  padding: 4px 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  font-family: inherit;
+}
+
+.color-scheme-selector:focus {
+  outline: none;
+  border-color: #0071c5;
+}
+
+.color-scheme-div {
+  width: 100%;
+}

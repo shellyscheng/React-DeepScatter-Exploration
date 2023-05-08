@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-  CSSProperties,
-} from 'react';
+import React, { useEffect, useRef, useState, CSSProperties } from 'react';
 import ScatterPlot from '../lib/deepscatter';
 import NavBar from './NavBar';
 import { handleClick, handleTooltip } from '../lib/utils';
@@ -21,18 +15,19 @@ const parentDivStyle: CSSProperties = {
 interface ChartProps {
   prefs: Object;
   plotRef: React.MutableRefObject<ScatterPlot | undefined>;
-  colorField: string;
   updateCategoricalFilter: Function;
+  updatePointSize: Function;
+  updateColorScheme: Function;
 }
 
 const ChartWrapper = ({
   prefs,
   plotRef,
-  colorField,
   updateCategoricalFilter,
+  updatePointSize,
+  updateColorScheme,
 }: ChartProps) => {
-  const [initialLoadComplete, setInitialLoadComplete] =
-    useState<boolean>(false);
+  const [_, setInitialLoadComplete] = useState<boolean>(false);
   const chartParentId = 'deep-scatter-parent-element-id';
   const chartParentRef = useRef(null);
 
@@ -59,8 +54,9 @@ const ChartWrapper = ({
   return (
     <div>
       <NavBar
-        colorField={colorField}
         updateCategoricalFilter={updateCategoricalFilter}
+        updatePointSize={updatePointSize}
+        updateColorScheme={updateColorScheme}
         plotRef={plotRef}
       />
       <div style={parentDivStyle} id={chartParentId} ref={chartParentRef} />

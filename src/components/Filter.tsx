@@ -1,33 +1,28 @@
 import { useState } from 'react';
-import {
-  getAllCategoricalColors,
-  getAllCategoricalFields,
-  formatString,
-} from '../lib/utils';
-import { COLOR_BY_FIELD } from '../lib/chartConfig';
+import { getAllCategoricalFields, formatString } from '../lib/utils';
+import { DEFAULT_COLOR_BY_FIELD, COLOR_FIELD } from '../lib/chartConfig';
 import ScatterPlot from '../lib/deepscatter';
+import colorSchemes from '../lib/colorSchemes';
+import { ColorSchemeType } from './NavBar';
 import '../styles/Filter.css';
 
 const Filters = ({
-  colorField,
   updateCategoricalFilter,
+  selectedColorScheme,
   plotRef,
 }: {
-  colorField: string;
+  selectedColorScheme: ColorSchemeType;
   updateCategoricalFilter: Function;
   plotRef: React.MutableRefObject<ScatterPlot | undefined>;
 }) => {
   // get all categorical options
   const categoricalOptions = getAllCategoricalFields({
-    field: colorField,
+    field: COLOR_FIELD,
     plot: plotRef.current,
   });
 
-  // get all categorical colors
-  const colorOptions = getAllCategoricalColors({
-    field: colorField,
-    plot: plotRef.current,
-  });
+  // get the categorical colors
+  const colorOptions = colorSchemes[selectedColorScheme];
 
   const [selectedCategories, setSelectedCategories] =
     useState<string[]>(categoricalOptions);
@@ -51,7 +46,7 @@ const Filters = ({
     setSelectedCategories(newSelectedCategories);
 
     updateCategoricalFilter({
-      field: COLOR_BY_FIELD,
+      field: DEFAULT_COLOR_BY_FIELD,
       selectedCategories: newSelectedCategories,
     });
   };

@@ -70,16 +70,6 @@ export const getAllCategoricalFields = ({
   return plot?._renderer?.aes?.dim(field).current.scale.domain() || [];
 };
 
-export const getAllCategoricalColors = ({
-  field,
-  plot,
-}: {
-  field: string;
-  plot?: ScatterPlot;
-}): string[] => {
-  return plot?._renderer?.aes?.dim(field).current.scale.range() || [];
-};
-
 // create the categorical filter for the plot
 export const generateCategoricalFilter = ({
   field,
