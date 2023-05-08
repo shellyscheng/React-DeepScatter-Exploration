@@ -56,7 +56,6 @@ export const handleTooltip = (point: DataPoint): string => {
 // open wikipedia page in new tab when clicking on a point
 export const handleClick = (point: DataPoint) => {
   const url = `https://en.wikipedia.org/wiki?curid=${point.id}`;
-  console.log('point', point);
   window.open(url, '_blank');
 };
 

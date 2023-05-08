@@ -41,10 +41,8 @@ const ChartWrapper = ({
 
       // @ts-ignore
       window.plot = _plot;
-      console.log('created scatter...');
 
       plotRef.current.plotAPI(prefs).finally(async () => {
-        console.log('... initial prefs set');
         setInitialLoadComplete(true);
         _plot.click_function = handleClick;
       });

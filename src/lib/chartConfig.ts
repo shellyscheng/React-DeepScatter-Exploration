@@ -3,7 +3,7 @@ export const DEFAULT_COLOR_BY_FIELD = 'topic_top_50';
 export const DEFAULT_COLOR_SCHEME = 'category10';
 
 export const initialPrefs = {
-  source_url: '/tiles', // the output of the quadfeather tiling engine
+  source_url: `${window.location.href}/tiles`, // the output of the quadfeather tiling engine
   max_points: 10000, // a full cap.
   alpha: 25, // Target saturation for the full page.
   zoom_balance: 0.7, // Rate at which points increase size. https://observablehq.com/@bmschmidt/zoom-strategies-for-huge-scatterplots-with-three-js
