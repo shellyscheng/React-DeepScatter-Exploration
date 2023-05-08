@@ -1,10 +1,10 @@
-import '../styles/NavBar.css';
 import Filters from './Filter';
 import ScatterPlot from '../lib/deepscatter';
 import PointSizeSlider from './PointSizeSlider';
 import ColorSchemeSelector from './ColorSchemeSelector';
 import { useState } from 'react';
 import { DEFAULT_COLOR_SCHEME } from '../lib/chartConfig';
+import '../styles/NavBar.css';
 
 interface NavBarProps {
   updateCategoricalFilter: Function;
@@ -32,7 +32,7 @@ const NavBar = ({
   return (
     <nav className="navbar">
       <div className="navbar-logo">Wikipedia DeepScatter Explorer</div>
-      <div className={`navbar-menu`}>
+      <div className="navbar-menu">
         <div className="dropdown">
           <div className="navbar-menu-link">Adjust Point Size</div>
           <PointSizeSlider updatePointSize={updatePointSize} />

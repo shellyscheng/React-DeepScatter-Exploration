@@ -53,12 +53,13 @@ export const handleTooltip = (point: DataPoint): string => {
       </div>`;
 };
 
-// open wikipedia page in new tab when clicking on a point
+// Open wikipedia page in new tab when clicking on a point
 export const handleClick = (point: DataPoint) => {
   const url = `https://en.wikipedia.org/wiki?curid=${point.id}`;
   window.open(url, '_blank');
 };
 
+// Get all categorical fields from the plot
 export const getAllCategoricalFields = ({
   field,
   plot,

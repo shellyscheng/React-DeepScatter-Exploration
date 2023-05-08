@@ -76,26 +76,10 @@
   display: block;
 }
 
-.hamburger-menu {
-  display: none;
-  cursor: pointer;
-}
-
-.hamburger-menu-icon {
-  width: 24px;
-  height: 3px;
-  background-color: #333;
-  margin: 5px 0;
-}
-
 /* Media query for mobile screens */
 @media screen and (max-width: 768px) {
   .navbar-menu {
     display: none;
-  }
-
-  .hamburger-menu {
-    display: block;
   }
 
   .navbar-menu.mobile {

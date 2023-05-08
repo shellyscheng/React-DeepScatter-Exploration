@@ -8,7 +8,7 @@ const PointSizeSlider = ({
 }) => {
   const [value, setValue] = useState<number>(initialPrefs.point_size);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(Number(event.target.value));
     updatePointSize({ pointSize: Number(event.target.value) });
   };

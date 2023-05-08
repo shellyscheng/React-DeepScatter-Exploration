@@ -7,7 +7,7 @@ export const initialPrefs = {
   max_points: 10000, // a full cap.
   alpha: 25, // Target saturation for the full page.
   zoom_balance: 0.7, // Rate at which points increase size. https://observablehq.com/@bmschmidt/zoom-strategies-for-huge-scatterplots-with-three-js
-  point_size: 3, // Default point size before application of size scaling
+  point_size: 5, // Default point size before application of size scaling
   background_color: '#000000',
   // encoding API based roughly on Vega Lite: https://vega.github.io/vega-lite/docs/encoding.html
   encoding: {

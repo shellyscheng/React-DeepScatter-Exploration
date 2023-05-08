@@ -27,6 +27,7 @@ const ChartWrapper = ({
   updatePointSize,
   updateColorScheme,
 }: ChartProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setInitialLoadComplete] = useState<boolean>(false);
   const chartParentId = 'deep-scatter-parent-element-id';
   const chartParentRef = useRef(null);
